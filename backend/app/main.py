@@ -1,13 +1,13 @@
 from fastapi import FastAPI
+from app.config.settings import PROJECT_NAME, PROJECT_VERSION
 
 app = FastAPI(
-    title="Smart Office Management System with AI",
-    version="1.0.0"
+    title=PROJECT_NAME,
+    version=PROJECT_VERSION
 )
-
 
 @app.get("/")
 def home():
     return {
-        "message": "Welcome to Smart Office Management System with AI"
+        "message": f"Welcome to {PROJECT_NAME}"
     }
