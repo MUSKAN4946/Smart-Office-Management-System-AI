@@ -1,13 +1,18 @@
 from fastapi import FastAPI
 
 from app.config.settings import PROJECT_NAME, PROJECT_VERSION
-from app.database.database import engine
+from app.database.database import Base, engine
+
+from app.models.employee import Employee
+from app.api.employee_api import router as employee_router
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title=PROJECT_NAME,
     version=PROJECT_VERSION
 )
-
+app.include_router(employee_router)
 
 @app.get("/")
 def home():
