@@ -5,6 +5,7 @@ from app.database.database import Base, engine
 
 from app.models.employee import Employee
 from app.api.employee_api import router as employee_router
+from app.api.user_api import router as user_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -13,6 +14,7 @@ app = FastAPI(
     version=PROJECT_VERSION
 )
 app.include_router(employee_router)
+app.include_router(user_router)
 
 @app.get("/")
 def home():
