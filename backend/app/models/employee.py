@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, Date
+from sqlalchemy.orm import relationship
 
 from app.database.database import Base
 
@@ -25,3 +26,8 @@ class Employee(Base):
     salary = Column(Float)
 
     is_active = Column(Boolean, default=True)
+
+    attendances = relationship(
+        "Attendance",
+        back_populates="employee"
+    )
