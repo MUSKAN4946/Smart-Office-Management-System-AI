@@ -9,6 +9,7 @@ from app.models.user import User
 from app.models.attendance import Attendance
 from app.models.leave import Leave
 from app.models.department import Department
+from app.models.payroll import Payroll
 
 
 # APIs
@@ -17,6 +18,7 @@ from app.api.user_api import router as user_router
 from app.api.attendance_api import router as attendance_router
 from app.api.leave_api import router as leave_router
 from app.api.department_api import router as department_router
+from app.api.payroll_api import router as payroll_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -31,6 +33,7 @@ app.include_router(user_router)
 app.include_router(attendance_router)
 app.include_router(leave_router)
 app.include_router(department_router)
+app.include_router(payroll_router)
 
 
 @app.get("/")
