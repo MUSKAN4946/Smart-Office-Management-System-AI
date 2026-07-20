@@ -24,8 +24,37 @@ def create_employee(db: Session, employee: EmployeeCreate):
     return new_employee
 
 
-def get_all_employees(db: Session):
-    return db.query(Employee).all()
+def get_all_employees(
+    db: Session,
+    search: str = None,
+    department: str = None,
+    skip: int = 0,
+    limit: int = 10,
+    sort_by: str = "id"
+):
+
+    query = db.query(Employee)
+
+    if search:
+        query = query.filter(
+            Employee.full_name.ilike(f"%{search}%")
+        )
+
+    if department:
+        query = query.filter(
+            Employee.department.ilike(f"%{department}%")
+        )
+
+    if sort_by == "name":
+        query = query.order_by(Employee.full_name)
+
+    elif sort_by == "salary":
+        query = query.order_by(Employee.salary.desc())
+
+    else:
+        query = query.order_by(Employee.id)
+
+    return query.offset(skip).limit(limit).all()
 
 
 def get_employee_by_id(db: Session, employee_id: int):

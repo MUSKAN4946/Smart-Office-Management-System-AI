@@ -27,9 +27,21 @@ def add_employee(
 
 @router.get("/", response_model=list[EmployeeResponse])
 def fetch_employees(
+    search: str = None,
+    department: str = None,
+    skip: int = 0,
+    limit: int = 10,
+    sort_by: str = "id",
     db: Session = Depends(get_db)
 ):
-    return get_all_employees(db)
+    return get_all_employees(
+        db=db,
+        search=search,
+        department=department,
+        skip=skip,
+        limit=limit,
+        sort_by=sort_by
+    )
 
 
 @router.get("/{employee_id}", response_model=EmployeeResponse)
