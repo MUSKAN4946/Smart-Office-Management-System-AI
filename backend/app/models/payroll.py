@@ -14,6 +14,8 @@ class Payroll(Base):
         nullable=False
     )
 
+
+
     basic_salary = Column(Float, nullable=False)
 
     hra = Column(Float, default=0)
@@ -23,3 +25,5 @@ class Payroll(Base):
     deductions = Column(Float, default=0)
 
     net_salary = Column(Float, nullable=False)
+
+

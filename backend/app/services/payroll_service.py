@@ -14,6 +14,7 @@ def create_payroll(db: Session, payroll: PayrollCreate):
         deductions=payroll.deductions,
         net_salary=payroll.net_salary
     )
+    
 
     db.add(new_payroll)
     db.commit()
