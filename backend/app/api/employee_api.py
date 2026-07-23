@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.database.database import get_db
+from app.core.role_checker import admin_required
+
 from app.schemas.employee_schema import EmployeeCreate, EmployeeResponse
 from app.services.employee_service import (
     create_employee,
@@ -20,7 +22,8 @@ router = APIRouter(
 @router.post("/", response_model=EmployeeResponse)
 def add_employee(
     employee: EmployeeCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
 ):
     return create_employee(db, employee)
 
@@ -64,7 +67,8 @@ def fetch_employee_by_id(
 def edit_employee(
     employee_id: int,
     employee: EmployeeCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
 ):
     updated_employee = update_employee(
         db,
@@ -84,7 +88,8 @@ def edit_employee(
 @router.delete("/{employee_id}")
 def remove_employee(
     employee_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
 ):
     deleted_employee = delete_employee(
         db,

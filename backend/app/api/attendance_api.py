@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from app.core.role_checker import admin_required
 
 from app.database.database import get_db
 from app.schemas.attendance_schema import (
@@ -20,7 +21,8 @@ router = APIRouter(
 @router.post("/", response_model=AttendanceResponse)
 def add_attendance(
     attendance: AttendanceCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
 ):
     return create_attendance(db, attendance)
 
