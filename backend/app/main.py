@@ -20,7 +20,6 @@ from app.api.leave_api import router as leave_router
 from app.api.department_api import router as department_router
 from app.api.payroll_api import router as payroll_router
 from app.api.dashboard_api import router as dashboard_router
-from app.api.health_api import router as health_router
 from app.api.office_statistics_api import router as office_statistics_router
 
 Base.metadata.create_all(bind=engine)
@@ -38,7 +37,6 @@ app.include_router(leave_router)
 app.include_router(department_router)
 app.include_router(payroll_router)
 app.include_router(dashboard_router)
-app.include_router(health_router)
 app.include_router(office_statistics_router)
 
 
