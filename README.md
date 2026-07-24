@@ -190,3 +190,17 @@ The following features are planned for future versions:
 B.Tech Computer Science & Engineering
 
 Smart Office Management System with AI
+
+
+
+## ✨ Features
+
+- JWT Authentication
+- Employee Management
+- Attendance Management
+- Leave Management
+- Payroll Management
+- Department Management
+- Dashboard Analytics
+- Office Statistics API
+- Health Check API
