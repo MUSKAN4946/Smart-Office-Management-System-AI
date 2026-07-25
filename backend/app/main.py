@@ -22,6 +22,8 @@ from app.api.payroll_api import router as payroll_router
 from app.api.dashboard_api import router as dashboard_router
 from app.api.office_statistics_api import router as office_statistics_router
 from app.api.report_api import router as report_router
+from app.api.email_api import router as email_router
+from app.api.dashboard_summary_api import router as dashboard_summary_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -40,6 +42,8 @@ app.include_router(payroll_router)
 app.include_router(dashboard_router)
 app.include_router(office_statistics_router)
 app.include_router(report_router)
+app.include_router(email_router)
+app.include_router(dashboard_summary_router)
 
 
 @app.get("/")
