@@ -24,6 +24,7 @@ from app.api.office_statistics_api import router as office_statistics_router
 from app.api.report_api import router as report_router
 from app.api.email_api import router as email_router
 from app.api.dashboard_summary_api import router as dashboard_summary_router
+from app.api.ai_insights_api import router as ai_insights_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -44,6 +45,7 @@ app.include_router(office_statistics_router)
 app.include_router(report_router)
 app.include_router(email_router)
 app.include_router(dashboard_summary_router)
+app.include_router(ai_insights_router)
 
 
 @app.get("/")
