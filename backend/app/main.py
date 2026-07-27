@@ -27,6 +27,7 @@ from app.api.dashboard_summary_api import router as dashboard_summary_router
 from app.api.ai_insights_api import router as ai_insights_router
 from app.api.employee_performance_api import router as employee_performance_router
 from app.api.pdf_report_api import router as pdf_report_router
+from app.api.excel_report_api import router as excel_report_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -50,6 +51,7 @@ app.include_router(dashboard_summary_router)
 app.include_router(ai_insights_router)
 app.include_router(employee_performance_router)
 app.include_router(pdf_report_router)
+app.include_router(excel_report_router)
 
 
 @app.get("/")
