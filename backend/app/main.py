@@ -29,6 +29,7 @@ from app.api.employee_performance_api import router as employee_performance_rout
 from app.api.pdf_report_api import router as pdf_report_router
 from app.api.excel_report_api import router as excel_report_router
 from app.api.announcement_api import router as announcement_router
+from app.api.profile_api import router as profile_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -54,6 +55,7 @@ app.include_router(employee_performance_router)
 app.include_router(pdf_report_router)
 app.include_router(excel_report_router)
 app.include_router(announcement_router)
+app.include_router(profile_router)
 
 
 @app.get("/")
