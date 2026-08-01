@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 
 from app.database.database import get_db
 from app.models.announcement import Announcement
+from app.utils.role_checker import admin_required
+from app.schemas.announcement_schema import AnnouncementCreate
 
 router = APIRouter(
     prefix="/announcements",
@@ -18,14 +20,14 @@ def get_announcements(db: Session = Depends(get_db)):
 
 @router.post("/")
 def create_announcement(
-    title: str,
-    message: str,
-    db: Session = Depends(get_db)
+    announcement: AnnouncementCreate,
+    db: Session = Depends(get_db),
+    current_user = Depends(admin_required)
 ):
 
     announcement = Announcement(
-        title=title,
-        message=message
+        title=announcement.title,
+        message=announcement.message
     )
 
     db.add(announcement)
@@ -40,7 +42,8 @@ def create_announcement(
 @router.delete("/{announcement_id}")
 def delete_announcement(
     announcement_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user = Depends(admin_required)
 ):
 
     announcement = db.query(Announcement).filter(
