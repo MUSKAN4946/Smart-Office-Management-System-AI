@@ -24,3 +24,49 @@ def create_leave(db: Session, leave: LeaveCreate):
 def get_all_leaves(db: Session):
 
     return db.query(Leave).all()
+
+
+def get_pending_leaves(db: Session):
+
+    return db.query(Leave).filter(
+        Leave.status == "Pending"
+    ).all()
+
+
+def approve_leave(
+    db: Session,
+    leave_id: int
+):
+
+    leave = db.query(Leave).filter(
+        Leave.id == leave_id
+    ).first()
+
+    if leave is None:
+        return None
+
+    leave.status = "Approved"
+
+    db.commit()
+    db.refresh(leave)
+
+    return leave
+
+def reject_leave(
+    db: Session,
+    leave_id: int
+):
+
+    leave = db.query(Leave).filter(
+        Leave.id == leave_id
+    ).first()
+
+    if leave is None:
+        return None
+
+    leave.status = "Rejected"
+
+    db.commit()
+    db.refresh(leave)
+
+    return leave

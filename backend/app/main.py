@@ -58,6 +58,7 @@ app.include_router(announcement_router)
 app.include_router(profile_router)
 
 
+
 @app.get("/")
 def home():
     return {

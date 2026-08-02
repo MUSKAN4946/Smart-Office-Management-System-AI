@@ -9,9 +9,11 @@ from app.schemas.leave_schema import (
 )
 from app.services.leave_service import (
     create_leave,
-    get_all_leaves
+    get_all_leaves,
+    get_pending_leaves,
+    approve_leave,
+    reject_leave
 )
-
 router = APIRouter(
     prefix="/leaves",
     tags=["Leaves"]
@@ -32,3 +34,47 @@ def fetch_leaves(
     db: Session = Depends(get_db)
 ):
     return get_all_leaves(db)
+
+
+@router.get("/pending", response_model=list[LeaveResponse])
+def fetch_pending_leaves(
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
+):
+    return get_pending_leaves(db)
+
+
+@router.put("/{leave_id}/approve", response_model=LeaveResponse)
+def approve_leave_request(
+    leave_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
+):
+
+    leave = approve_leave(db, leave_id)
+
+    if leave is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Leave Request Not Found"
+        )
+
+    return leave
+
+
+@router.put("/{leave_id}/reject", response_model=LeaveResponse)
+def reject_leave_request(
+    leave_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
+):
+
+    leave = reject_leave(db, leave_id)
+
+    if leave is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Leave Request Not Found"
+        )
+
+    return leave
