@@ -70,3 +70,13 @@ def reject_leave(
     db.refresh(leave)
 
     return leave
+
+
+def get_my_leaves(
+    db: Session,
+    employee_id: int
+):
+
+    return db.query(Leave).filter(
+        Leave.employee_id == employee_id
+    ).all()
