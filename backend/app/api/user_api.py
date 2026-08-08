@@ -1,3 +1,6 @@
+from app.models.user import User
+from app.utils.role_checker import admin_required
+
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
@@ -53,4 +56,40 @@ def login(
             "email": result["user"].email,
             "role": result["user"].role
         }
+    }
+
+
+@router.put("/{user_id}/role")
+def update_user_role(
+    user_id: int,
+    role: str,
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
+):
+    user = db.query(User).filter(
+        User.id == user_id
+    ).first()
+
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+
+    if role not in ["Admin", "Employee"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Role must be Admin or Employee"
+        )
+
+    user.role = role
+
+    db.commit()
+    db.refresh(user)
+
+    return {
+        "message": "User role updated successfully",
+        "user_id": user.id,
+        "email": user.email,
+        "role": user.role
     }
