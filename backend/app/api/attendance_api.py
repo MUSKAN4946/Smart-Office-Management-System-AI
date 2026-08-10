@@ -12,9 +12,9 @@ from app.schemas.attendance_schema import (
 from app.services.attendance_service import (
     create_attendance,
     get_all_attendance,
-    get_employee_attendance
+    get_employee_attendance,
+    filter_attendance
 )
-
 router = APIRouter(
     prefix="/attendance",
     tags=["Attendance"]
@@ -49,3 +49,17 @@ def fetch_my_attendance(
     db,
     current_user.email
 )
+
+
+
+@router.get("/filter", response_model=list[AttendanceResponse])
+def fetch_filtered_attendance(
+    employee_id: int | None = None,
+    status: str | None = None,
+    db: Session = Depends(get_db)
+):
+    return filter_attendance(
+        db,
+        employee_id,
+        status
+    )

@@ -46,3 +46,23 @@ def get_employee_attendance(
     return db.query(Attendance).filter(
         Attendance.employee_id == employee.id
     ).all()
+
+def filter_attendance(
+    db: Session,
+    employee_id: int | None = None,
+    status: str | None = None
+):
+
+    query = db.query(Attendance)
+
+    if employee_id is not None:
+        query = query.filter(
+            Attendance.employee_id == employee_id
+        )
+
+    if status is not None:
+        query = query.filter(
+            Attendance.status == status
+        )
+
+    return query.all()
