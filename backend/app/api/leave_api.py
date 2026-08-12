@@ -42,7 +42,8 @@ def add_leave(
 
 @router.get("/", response_model=list[LeaveResponse])
 def fetch_leaves(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user=Depends(admin_required)
 ):
     return get_all_leaves(db)
 
