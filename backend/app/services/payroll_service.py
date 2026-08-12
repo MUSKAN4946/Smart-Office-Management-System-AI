@@ -6,13 +6,20 @@ from app.schemas.payroll_schema import PayrollCreate
 
 def create_payroll(db: Session, payroll: PayrollCreate):
 
+    net_salary = (
+    payroll.basic_salary
+    + payroll.hra
+    + payroll.bonus
+    - payroll.deductions
+)
+
     new_payroll = Payroll(
         employee_id=payroll.employee_id,
         basic_salary=payroll.basic_salary,
         hra=payroll.hra,
         bonus=payroll.bonus,
         deductions=payroll.deductions,
-        net_salary=payroll.net_salary
+        net_salary=net_salary
     )
     
 

@@ -7,7 +7,6 @@ class PayrollCreate(BaseModel):
     hra: float
     bonus: float
     deductions: float
-    net_salary: float
 
 
 class PayrollResponse(BaseModel):
