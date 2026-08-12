@@ -26,3 +26,23 @@ def create_payroll(db: Session, payroll: PayrollCreate):
 def get_all_payrolls(db: Session):
 
     return db.query(Payroll).all()
+
+
+from app.models.employee import Employee
+
+
+def get_employee_payroll(
+    db: Session,
+    employee_email: str
+):
+
+    employee = db.query(Employee).filter(
+        Employee.email == employee_email
+    ).first()
+
+    if employee is None:
+        return []
+
+    return db.query(Payroll).filter(
+        Payroll.employee_id == employee.id
+    ).all()
