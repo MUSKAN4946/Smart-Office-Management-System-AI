@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 
+from sqlalchemy.orm import relationship
+
 from app.database.database import Base
 
 
@@ -23,3 +25,9 @@ class Leave(Base):
     reason = Column(String(255))
 
     status = Column(String(20), default="Pending")
+
+
+    employee = relationship(
+    "Employee",
+    back_populates="leaves"
+)

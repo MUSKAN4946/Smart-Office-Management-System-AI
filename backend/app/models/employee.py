@@ -27,7 +27,20 @@ class Employee(Base):
 
     is_active = Column(Boolean, default=True)
 
+
     attendances = relationship(
         "Attendance",
         back_populates="employee"
     )
+
+    payrolls = relationship(
+        "Payroll",
+        back_populates="employee"
+    )
+
+    leaves = relationship(
+        "Leave",
+        back_populates="employee"
+    )
+
+

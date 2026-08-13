@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, Float, ForeignKey
 
 from app.database.database import Base
 
+from sqlalchemy.orm import relationship
+
 
 class Payroll(Base):
     __tablename__ = "payroll"
@@ -25,5 +27,10 @@ class Payroll(Base):
     deductions = Column(Float, default=0)
 
     net_salary = Column(Float, nullable=False)
+
+    employee = relationship(
+    "Employee",
+    back_populates="payrolls"
+)
 
 

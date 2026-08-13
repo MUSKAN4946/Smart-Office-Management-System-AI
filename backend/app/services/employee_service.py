@@ -102,3 +102,14 @@ def delete_employee(db: Session, employee_id: int):
     db.commit()
 
     return {"message": "Employee deleted successfully"}
+
+
+
+def get_employee_by_email(
+    db: Session,
+    email: str
+):
+
+    return db.query(Employee).filter(
+        Employee.email == email
+    ).first()

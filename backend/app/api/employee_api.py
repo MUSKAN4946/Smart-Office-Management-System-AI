@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from app.schemas.employee_schema import EmployeeCreate, EmployeeResponse
 
 from app.database.database import get_db
 from app.utils.role_checker import (
@@ -7,13 +8,13 @@ from app.utils.role_checker import (
     employee_required
 )
 
-from app.schemas.employee_schema import EmployeeCreate, EmployeeResponse
 from app.services.employee_service import (
     create_employee,
     get_all_employees,
     get_employee_by_id,
     update_employee,
-    delete_employee
+    delete_employee,
+    get_employee_by_email
 )
 
 router = APIRouter(
@@ -48,6 +49,30 @@ def fetch_employees(
         limit=limit,
         sort_by=sort_by
     )
+
+
+
+
+
+
+@router.get("/my-profile", response_model=EmployeeResponse)
+def fetch_my_profile(
+    db: Session = Depends(get_db),
+    current_user=Depends(employee_required)
+):
+
+    employee = get_employee_by_email(
+        db,
+        current_user.email
+    )
+
+    if employee is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Employee not found"
+        )
+
+    return employee
 
 
 @router.get("/{employee_id}", response_model=EmployeeResponse)
