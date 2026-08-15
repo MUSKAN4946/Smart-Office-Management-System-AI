@@ -31,6 +31,7 @@ from app.api.excel_report_api import router as excel_report_router
 from app.api.announcement_api import router as announcement_router
 from app.api.profile_api import router as profile_router
 from app.api.employee_dashboard_api import router as employee_dashboard_router
+from app.api.notification_api import router as notification_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -58,6 +59,7 @@ app.include_router(excel_report_router)
 app.include_router(announcement_router)
 app.include_router(profile_router)
 app.include_router(employee_dashboard_router)
+app.include_router(notification_router)
 
 
 

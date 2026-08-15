@@ -43,4 +43,9 @@ class Employee(Base):
         back_populates="employee"
     )
 
+    notifications = relationship(
+    "Notification",
+    back_populates="employee"
+)
+
 
