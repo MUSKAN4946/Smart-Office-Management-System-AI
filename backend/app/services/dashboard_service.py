@@ -1,6 +1,7 @@
 from datetime import date
 
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.models.employee import Employee
 from app.models.department import Department
@@ -56,3 +57,24 @@ def get_dashboard_data(db: Session):
 
         "total_users": db.query(User).count()
     }
+
+def get_department_employee_count(db: Session):
+
+    result = (
+        db.query(
+            Employee.department,
+            func.count(Employee.id)
+        )
+        .group_by(Employee.department)
+        .all()
+    )
+
+    return [
+        {
+            "department": department,
+            "employee_count": count
+        }
+        for department, count in result
+    ]
+
+

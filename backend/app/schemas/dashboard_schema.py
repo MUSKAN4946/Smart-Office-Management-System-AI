@@ -20,3 +20,8 @@ class DashboardResponse(BaseModel):
     total_payrolls: int
 
     total_users: int
+
+
+class DepartmentEmployeeCountResponse(BaseModel):
+    department: str
+    employee_count: int
