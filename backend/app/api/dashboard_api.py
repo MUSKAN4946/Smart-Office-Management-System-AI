@@ -5,11 +5,14 @@ from app.database.database import get_db
 
 from app.schemas.dashboard_schema import (
     DashboardResponse,
-    DepartmentEmployeeCountResponse
+    DepartmentEmployeeCountResponse,
+    SalaryAnalyticsResponse
 )
+
 from app.services.dashboard_service import (
     get_dashboard_data,
-    get_department_employee_count
+    get_department_employee_count,
+    get_salary_analytics
 )
 
 router = APIRouter(
@@ -31,3 +34,13 @@ def department_employee_count(
     db: Session = Depends(get_db)
 ):
     return get_department_employee_count(db)
+
+
+@router.get(
+    "/salary-analytics",
+    response_model=SalaryAnalyticsResponse
+)
+def salary_analytics(
+    db: Session = Depends(get_db)
+):
+    return get_salary_analytics(db)

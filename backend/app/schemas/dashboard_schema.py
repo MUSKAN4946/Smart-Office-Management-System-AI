@@ -25,3 +25,10 @@ class DashboardResponse(BaseModel):
 class DepartmentEmployeeCountResponse(BaseModel):
     department: str
     employee_count: int
+
+
+class SalaryAnalyticsResponse(BaseModel):
+    total_salary_expense: float
+    average_salary: float
+    highest_salary: float
+    lowest_salary: float

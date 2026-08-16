@@ -77,4 +77,24 @@ def get_department_employee_count(db: Session):
         for department, count in result
     ]
 
+def get_salary_analytics(db: Session):
+
+    return {
+        "total_salary_expense": db.query(
+            func.sum(Payroll.net_salary)
+        ).scalar() or 0,
+
+        "average_salary": db.query(
+            func.avg(Payroll.net_salary)
+        ).scalar() or 0,
+
+        "highest_salary": db.query(
+            func.max(Payroll.net_salary)
+        ).scalar() or 0,
+
+        "lowest_salary": db.query(
+            func.min(Payroll.net_salary)
+        ).scalar() or 0
+    }
+
 
