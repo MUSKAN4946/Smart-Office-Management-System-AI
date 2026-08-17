@@ -24,7 +24,6 @@ from app.api.office_statistics_api import router as office_statistics_router
 from app.api.report_api import router as report_router
 from app.api.email_api import router as email_router
 from app.api.dashboard_summary_api import router as dashboard_summary_router
-from app.api.ai_insights_api import router as ai_insights_router
 from app.api.employee_performance_api import router as employee_performance_router
 from app.api.pdf_report_api import router as pdf_report_router
 from app.api.excel_report_api import router as excel_report_router
@@ -52,7 +51,6 @@ app.include_router(office_statistics_router)
 app.include_router(report_router)
 app.include_router(email_router)
 app.include_router(dashboard_summary_router)
-app.include_router(ai_insights_router)
 app.include_router(employee_performance_router)
 app.include_router(pdf_report_router)
 app.include_router(excel_report_router)

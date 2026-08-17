@@ -1,4 +1,4 @@
-# 🎯 Smart Office Management System with AI
+# 🎯 Smart Office Management System 
 
 ## 📌 Project Description
 
