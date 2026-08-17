@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.config.settings import PROJECT_NAME, PROJECT_VERSION
 from app.database.database import Base, engine
@@ -20,16 +21,9 @@ from app.api.leave_api import router as leave_router
 from app.api.department_api import router as department_router
 from app.api.payroll_api import router as payroll_router
 from app.api.dashboard_api import router as dashboard_router
-from app.api.office_statistics_api import router as office_statistics_router
 from app.api.report_api import router as report_router
 from app.api.email_api import router as email_router
-from app.api.dashboard_summary_api import router as dashboard_summary_router
-from app.api.employee_performance_api import router as employee_performance_router
-from app.api.pdf_report_api import router as pdf_report_router
-from app.api.excel_report_api import router as excel_report_router
-from app.api.announcement_api import router as announcement_router
 from app.api.profile_api import router as profile_router
-from app.api.employee_dashboard_api import router as employee_dashboard_router
 from app.api.notification_api import router as notification_router
 
 Base.metadata.create_all(bind=engine)
@@ -37,6 +31,16 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title=PROJECT_NAME,
     version=PROJECT_VERSION
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Register APIs
@@ -47,16 +51,9 @@ app.include_router(leave_router)
 app.include_router(department_router)
 app.include_router(payroll_router)
 app.include_router(dashboard_router)
-app.include_router(office_statistics_router)
 app.include_router(report_router)
 app.include_router(email_router)
-app.include_router(dashboard_summary_router)
-app.include_router(employee_performance_router)
-app.include_router(pdf_report_router)
-app.include_router(excel_report_router)
-app.include_router(announcement_router)
 app.include_router(profile_router)
-app.include_router(employee_dashboard_router)
 app.include_router(notification_router)
 
 
