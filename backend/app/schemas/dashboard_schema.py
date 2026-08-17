@@ -32,3 +32,10 @@ class SalaryAnalyticsResponse(BaseModel):
     average_salary: float
     highest_salary: float
     lowest_salary: float
+
+
+class DepartmentSalaryAnalyticsResponse(BaseModel):
+    department: str
+    employee_count: int
+    total_salary: float
+    average_salary: float

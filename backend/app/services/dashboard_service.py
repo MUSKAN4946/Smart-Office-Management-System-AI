@@ -98,3 +98,35 @@ def get_salary_analytics(db: Session):
     }
 
 
+def get_department_salary_analytics(db: Session):
+
+    result = (
+        db.query(
+            Employee.department,
+            func.count(Employee.id),
+            func.sum(Payroll.net_salary),
+            func.avg(Payroll.net_salary)
+        )
+        .join(
+            Payroll,
+            Employee.id == Payroll.employee_id
+        )
+        .group_by(Employee.department)
+        .all()
+    )
+
+    return [
+        {
+            "department": department,
+            "employee_count": employee_count,
+            "total_salary": total_salary,
+            "average_salary": average_salary
+        }
+        for (
+            department,
+            employee_count,
+            total_salary,
+            average_salary
+        ) in result
+    ]
+
