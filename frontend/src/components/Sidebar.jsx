@@ -24,7 +24,7 @@ function Sidebar() {
                     📊 Dashboard
                 </Link>
 
-                <Link to="#" style={linkStyle}>
+               <Link to="/employees" style={linkStyle}>
                     👨 Employees
                 </Link>
 
